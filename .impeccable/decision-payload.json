@@ -1,0 +1,174 @@
+{
+  "title": "Choose the visual world for Santi Subidia's Portfolio",
+  "question": "The roll assigned Interactive Creative Studio. Choose this direction, explore an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Interactive Creative Studio",
+      "kicker": "THE ROLL",
+      "lineage": "Modern creative engineering & generative canvas showcases",
+      "thesis": "The portfolio as an interactive physics/generative canvas playground that proves frontend craft instantly.",
+      "palette": [
+        "#0b0d13",
+        "#1e2230",
+        "#6366f1",
+        "#06b6d4",
+        "#f8fafc"
+      ],
+      "materials": [
+        "interactive canvas",
+        "fluid springs",
+        "frosted glass elevation"
+      ],
+      "viewport": "Full-bleed dark canvas with responsive fluid/particle physics reacting to cursor, bold display typography, floating project specimen cards with live demo triggers.",
+      "risk": "Can feel overly decorative if the engineering case studies and technical depth aren't front and center.",
+      "raised": [
+        {
+          "from": "risograph-web-system",
+          "raise": "Tactile layer shift and subtle micro-texture on project specimen cards on hover."
+        },
+        {
+          "from": "signals-instruments-phosphor-terminal-midnight",
+          "raise": "Integrated compact live telemetry / command palette bar for instant navigation and tech stack inspection."
+        }
+      ],
+      "comp": ".impeccable/mocks/decision/assigned.webp"
+    },
+    {
+      "id": "model-pick",
+      "label": "Interactive Component Workbench",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Precision design systems & engineering testbeds (Storybook / Linear design lab)",
+      "thesis": "Every project and capability showcased as a living, inspectable component specimen with real-time controls.",
+      "palette": [
+        "#0f172a",
+        "#1e293b",
+        "#38bdf8",
+        "#4ade80",
+        "#f1f5f9"
+      ],
+      "materials": [
+        "precision grid calipers",
+        "interactive state toggles",
+        "syntax-highlighted telemetry"
+      ],
+      "viewport": "A dense, calibrated split layout: left rail with developer index & telemetry, main canvas featuring live interactive component specimens you can tweak in real-time.",
+      "risk": "Very dense technical feel; prioritizes engineering inspection over fluid storytelling.",
+      "comp": ".impeccable/mocks/decision/model-pick.webp"
+    },
+    {
+      "id": "challenger-risograph",
+      "label": "Risograph Web System",
+      "verdict": "competitive",
+      "lineage": "Independent risograph print publications and posters",
+      "thesis": "Tactile two-color spot ink layers that misregister and grain over warm toothy paper.",
+      "palette": [
+        "#f7f4ed",
+        "#ff3366",
+        "#0044ff",
+        "#1c1b18"
+      ],
+      "materials": [
+        "halftone screen",
+        "mix-blend multiply",
+        "toothy rag paper"
+      ],
+      "viewport": "Warm paper canvas with misregistering spot-ink cards and high-contrast typography.",
+      "case": "Striking visual personality and tactile warmth; loses slightly on software engineering-native vibe.",
+      "risk": "Feels more editorial/illustrative than software engineering-native.",
+      "comp": ".impeccable/mocks/decision/challenger-risograph.webp",
+      "hero": "https://impeccable.style/worlds/cards/risograph-web-system-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/risograph-web-system.webp"
+    },
+    {
+      "id": "challenger-phosphor",
+      "label": "Phosphor Terminal Midnight",
+      "verdict": "declined",
+      "lineage": "P1 green phosphor CRT terminals & machine rooms",
+      "palette": [
+        "#050807",
+        "#00ff66",
+        "#008833",
+        "#aaffcc"
+      ],
+      "materials": [
+        "phosphor bloom",
+        "scanline glass",
+        "CRT curvature"
+      ],
+      "case": "Unmistakable systems atmosphere, but too monochromatic for showcasing modern rich UI/UX projects.",
+      "kept": "Live terminal command bar / telemetry inspection.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-phosphor-terminal-midnight-hero.webp"
+    },
+    {
+      "id": "challenger-noir",
+      "label": "Noir One-Sheet Duotone",
+      "verdict": "declined",
+      "lineage": "1950s cinematic one-sheet posters and duotone lithography",
+      "palette": [
+        "#111111",
+        "#e0e0e0",
+        "#d97706"
+      ],
+      "materials": [
+        "cast shadows",
+        "high-contrast lighting"
+      ],
+      "case": "Strong cinematic drama, but lacks interactive software texture.",
+      "kept": "Dramatic directional lighting and shadow depth on cards.",
+      "hero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-noir-one-sheet-duotone-hero.webp"
+    },
+    {
+      "id": "challenger-pc98",
+      "label": "PC-98 Sixteen-Color Field",
+      "verdict": "declined",
+      "lineage": "Japanese 16-color PC-98 bitmap interfaces",
+      "palette": [
+        "#000000",
+        "#0000aa",
+        "#00aa00",
+        "#aa0000",
+        "#aaaaaa",
+        "#ffffff"
+      ],
+      "materials": [
+        "ordered dither",
+        "integer bitmap scaling"
+      ],
+      "case": "Highly nostalgic retro aesthetic, but conflicts with modern responsive React/Next.js product expectations.",
+      "kept": "Crisp pixel-perfect grid alignment.",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-pc98-sixteen-color-field-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "buildPath": {
+    "value": "code",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "Modern Minimalist Dark Portfolio (Category Standard)",
+    "thesis": "Clean, spacious dark mode developer portfolio with subtle gradients, card borders, and standard project cards.",
+    "palette": [
+      "#09090b",
+      "#18181b",
+      "#27272a",
+      "#3b82f6",
+      "#fafafa"
+    ],
+    "materials": [
+      "subtle border glow",
+      "clean typography",
+      "standard card grid"
+    ],
+    "viewport": "Centered header intro, featured projects grid, skills badge list, simple contact footer.",
+    "risk": "Indistinguishable from the typical developer template.",
+    "comp": ".impeccable/mocks/decision/canon.webp"
+  },
+  "steer": true
+}
