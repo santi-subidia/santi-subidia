@@ -11,10 +11,14 @@ import {
   Sparkles, 
   Check, 
   X,
-  ArrowRight
+  ArrowRight,
+  Sun,
+  Moon
 } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/BrandIcons";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
+import { copyToClipboard } from "@/utils/clipboard";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -22,6 +26,7 @@ interface CommandPaletteProps {
 }
 
 export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
+  const { theme, resolvedTheme, setTheme, toggleTheme } = useTheme();
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [copiedAction, setCopiedAction] = useState<string | null>(null);
@@ -29,9 +34,39 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
 
   const actions = [
     {
+      id: "toggle-theme",
+      label: resolvedTheme === "dark" ? "Cambiar a Modo Claro" : "Cambiar a Modo Oscuro",
+      category: "Tema",
+      icon: resolvedTheme === "dark" ? Sun : Moon,
+      perform: () => {
+        toggleTheme();
+        onClose();
+      },
+    },
+    {
+      id: "theme-light",
+      label: "Establecer Tema: Modo Claro",
+      category: "Tema",
+      icon: Sun,
+      perform: () => {
+        setTheme("light");
+        onClose();
+      },
+    },
+    {
+      id: "theme-dark",
+      label: "Establecer Tema: Modo Oscuro",
+      category: "Tema",
+      icon: Moon,
+      perform: () => {
+        setTheme("dark");
+        onClose();
+      },
+    },
+    {
       id: "projects",
-      label: "Navigate: Featured Projects",
-      category: "Navigation",
+      label: "Navegar: Proyectos Destacados",
+      category: "Navegación",
       icon: Layers,
       perform: () => {
         document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
@@ -39,19 +74,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
       },
     },
     {
-      id: "lab",
-      label: "Navigate: Component Lab & Physics",
-      category: "Navigation",
-      icon: Sparkles,
-      perform: () => {
-        document.getElementById("lab")?.scrollIntoView({ behavior: "smooth" });
-        onClose();
-      },
-    },
-    {
       id: "skills",
-      label: "Navigate: Skills & Telemetry",
-      category: "Navigation",
+      label: "Navegar: Tecnologías & Herramientas",
+      category: "Navegación",
       icon: Code,
       perform: () => {
         document.getElementById("skills")?.scrollIntoView({ behavior: "smooth" });
@@ -60,8 +85,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
     },
     {
       id: "experience",
-      label: "Navigate: Career Experience",
-      category: "Navigation",
+      label: "Navegar: Formación Universitaria",
+      category: "Navegación",
       icon: Briefcase,
       perform: () => {
         document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" });
@@ -70,8 +95,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
     },
     {
       id: "contact",
-      label: "Navigate: Contact & Connect",
-      category: "Navigation",
+      label: "Navegar: Contacto Directo",
+      category: "Navegación",
       icon: Mail,
       perform: () => {
         document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
@@ -80,12 +105,12 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
     },
     {
       id: "copy-email",
-      label: `Copy Email (${PORTFOLIO_DATA.developer.socials.email})`,
-      category: "Actions",
+      label: `Copiar Correo (${PORTFOLIO_DATA.developer.socials.email})`,
+      category: "Acciones",
       icon: Mail,
-      perform: () => {
-        navigator.clipboard.writeText(PORTFOLIO_DATA.developer.socials.email);
-        setCopiedAction("Email copied to clipboard!");
+      perform: async () => {
+        await copyToClipboard(PORTFOLIO_DATA.developer.socials.email);
+        setCopiedAction("¡Correo copiado al portapapeles!");
         setTimeout(() => {
           setCopiedAction(null);
           onClose();
@@ -94,8 +119,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
     },
     {
       id: "github",
-      label: "Open GitHub Profile",
-      category: "Links",
+      label: "Abrir Perfil de GitHub",
+      category: "Enlaces",
       icon: GithubIcon,
       perform: () => {
         window.open(PORTFOLIO_DATA.developer.socials.github, "_blank", "noopener,noreferrer");
@@ -104,8 +129,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
     },
     {
       id: "linkedin",
-      label: "Open LinkedIn Profile",
-      category: "Links",
+      label: "Abrir Perfil de LinkedIn",
+      category: "Enlaces",
       icon: LinkedinIcon,
       perform: () => {
         window.open(PORTFOLIO_DATA.developer.socials.linkedin, "_blank", "noopener,noreferrer");
@@ -166,7 +191,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
       >
         {/* Search Input Bar */}
         <div className="flex items-center px-4 py-3.5 border-b border-surface-border gap-3">
-          <Search className="w-5 h-5 text-zinc-400" />
+          <Search className="w-5 h-5 text-zinc-400 dark:text-zinc-500" />
           <input
             ref={inputRef}
             type="text"
@@ -176,11 +201,11 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
               setQuery(e.target.value);
               setSelectedIndex(0);
             }}
-            className="flex-1 bg-transparent border-none outline-none text-foreground placeholder-zinc-500 text-sm font-mono"
+            className="flex-1 bg-transparent border-none outline-none text-foreground placeholder-zinc-400 dark:placeholder-zinc-500 text-sm font-mono"
           />
           <button
             onClick={onClose}
-            className="p-1 rounded-md text-zinc-400 hover:text-white hover:bg-surface-elevated transition-colors"
+            className="p-1 rounded-md text-zinc-400 hover:text-foreground hover:bg-surface-elevated transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -188,7 +213,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
 
         {/* Feedback alert if action executed */}
         {copiedAction && (
-          <div className="px-4 py-2.5 bg-emerald-500/10 border-b border-emerald-500/20 text-emerald-400 text-xs font-mono flex items-center gap-2">
+          <div className="px-4 py-2.5 bg-emerald-500/10 border-b border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-mono flex items-center gap-2">
             <Check className="w-3.5 h-3.5" />
             {copiedAction}
           </div>
@@ -212,16 +237,16 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
                   onMouseEnter={() => setSelectedIndex(idx)}
                   className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left transition-colors font-mono text-xs ${
                     isSelected
-                      ? "bg-brand-indigo/15 text-white border border-brand-indigo/30"
-                      : "text-zinc-300 hover:bg-surface-hover border border-transparent"
+                      ? "bg-brand-indigo/15 text-foreground dark:text-white border border-brand-indigo/30"
+                      : "text-zinc-700 dark:text-zinc-300 hover:bg-surface-hover border border-transparent"
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <div
                       className={`p-1.5 rounded-lg ${
                         isSelected
-                          ? "bg-brand-indigo/30 text-brand-cyan-light"
-                          : "bg-surface-elevated text-zinc-400"
+                          ? "bg-brand-indigo/30 text-brand-indigo dark:text-brand-cyan-light"
+                          : "bg-surface-elevated text-zinc-500 dark:text-zinc-400"
                       }`}
                     >
                       <Icon className="w-4 h-4" />
@@ -230,10 +255,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-zinc-500 uppercase tracking-wider px-1.5 py-0.5 rounded bg-surface-elevated">
+                    <span className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-wider px-1.5 py-0.5 rounded bg-surface-elevated">
                       {action.category}
                     </span>
-                    {isSelected && <ArrowRight className="w-3.5 h-3.5 text-brand-cyan" />}
+                    {isSelected && <ArrowRight className="w-3.5 h-3.5 text-brand-indigo dark:text-brand-cyan" />}
                   </div>
                 </button>
               );
@@ -244,10 +269,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
         {/* Footer info */}
         <div className="px-4 py-2 bg-surface-elevated/40 border-t border-surface-border flex items-center justify-between text-[11px] text-zinc-500 font-mono">
           <div className="flex items-center gap-2">
-            <span>Navigate <kbd className="px-1 py-0.5 rounded bg-surface-border text-zinc-300">↑</kbd><kbd className="px-1 py-0.5 rounded bg-surface-border text-zinc-300">↓</kbd></span>
-            <span>Select <kbd className="px-1 py-0.5 rounded bg-surface-border text-zinc-300">↵</kbd></span>
+            <span>Navigate <kbd className="px-1 py-0.5 rounded bg-surface-elevated border border-surface-border text-zinc-700 dark:text-zinc-300">↑</kbd><kbd className="px-1 py-0.5 rounded bg-surface-elevated border border-surface-border text-zinc-700 dark:text-zinc-300">↓</kbd></span>
+            <span>Select <kbd className="px-1 py-0.5 rounded bg-surface-elevated border border-surface-border text-zinc-700 dark:text-zinc-300">↵</kbd></span>
           </div>
-          <span>Close <kbd className="px-1 py-0.5 rounded bg-surface-border text-zinc-300">ESC</kbd></span>
+          <span>Close <kbd className="px-1 py-0.5 rounded bg-surface-elevated border border-surface-border text-zinc-700 dark:text-zinc-300">ESC</kbd></span>
         </div>
       </div>
     </div>

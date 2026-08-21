@@ -10,14 +10,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "#0b0d13",
-        foreground: "#f8fafc",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
         surface: {
-          DEFAULT: "#121620",
-          hover: "#181d2a",
-          border: "#262e40",
-          card: "#151a26",
-          elevated: "#1c2333",
+          DEFAULT: "var(--surface)",
+          hover: "var(--surface-hover)",
+          border: "var(--surface-border)",
+          card: "var(--surface-card)",
+          elevated: "var(--surface-elevated)",
         },
         brand: {
           indigo: "#6366f1",

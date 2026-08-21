@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 interface Particle {
   x: number;
@@ -11,11 +12,17 @@ interface Particle {
   baseX: number;
   baseY: number;
   density: number;
-  color: string;
+  colorIndex: number;
 }
 
 export const InteractiveCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { resolvedTheme } = useTheme();
+  const themeRef = useRef(resolvedTheme);
+
+  useEffect(() => {
+    themeRef.current = resolvedTheme;
+  }, [resolvedTheme]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -39,7 +46,8 @@ export const InteractiveCanvas: React.FC = () => {
       isMoving: false,
     };
 
-    const colors = ["rgba(99, 102, 241, 0.7)", "rgba(6, 182, 212, 0.7)", "rgba(129, 140, 248, 0.5)"];
+    const darkColors = ["rgba(99, 102, 241, 0.75)", "rgba(6, 182, 212, 0.75)", "rgba(129, 140, 248, 0.6)"];
+    const lightColors = ["rgba(99, 102, 241, 0.55)", "rgba(6, 182, 212, 0.55)", "rgba(79, 70, 229, 0.45)"];
 
     // Initialize particles
     for (let i = 0; i < particleCount; i++) {
@@ -54,7 +62,7 @@ export const InteractiveCanvas: React.FC = () => {
         baseX: x,
         baseY: y,
         density: Math.random() * 30 + 1,
-        color: colors[Math.floor(Math.random() * colors.length)],
+        colorIndex: Math.floor(Math.random() * 3),
       });
     }
 
@@ -88,7 +96,7 @@ export const InteractiveCanvas: React.FC = () => {
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     window.addEventListener("mouseleave", handleMouseLeave, { passive: true });
     window.addEventListener("touchmove", handleTouchMove, { passive: true });
-    window.addEventListener("touchend", handleMouseLeave, { passive: true });
+    window.addEventListener("touchend", handleMouseLeave);
 
     let isVisible = true;
     const handleVisibilityChange = () => {
@@ -104,6 +112,9 @@ export const InteractiveCanvas: React.FC = () => {
 
       ctx.clearRect(0, 0, width, height);
 
+      const isDark = themeRef.current === "dark";
+      const activeColors = isDark ? darkColors : lightColors;
+
       // Draw subtle background grid vignette
       const gradient = ctx.createRadialGradient(
         width / 2,
@@ -113,9 +124,15 @@ export const InteractiveCanvas: React.FC = () => {
         height / 2,
         Math.max(width, height) * 0.8
       );
-      gradient.addColorStop(0, "rgba(99, 102, 241, 0.04)");
-      gradient.addColorStop(0.5, "rgba(6, 182, 212, 0.02)");
-      gradient.addColorStop(1, "rgba(11, 13, 19, 0)");
+      if (isDark) {
+        gradient.addColorStop(0, "rgba(99, 102, 241, 0.04)");
+        gradient.addColorStop(0.5, "rgba(6, 182, 212, 0.02)");
+        gradient.addColorStop(1, "rgba(11, 13, 19, 0)");
+      } else {
+        gradient.addColorStop(0, "rgba(99, 102, 241, 0.03)");
+        gradient.addColorStop(0.5, "rgba(6, 182, 212, 0.015)");
+        gradient.addColorStop(1, "rgba(248, 250, 252, 0)");
+      }
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
 
@@ -148,12 +165,16 @@ export const InteractiveCanvas: React.FC = () => {
           p.y -= directionY;
         }
 
+        const particleColor = activeColors[p.colorIndex] || activeColors[0];
+
         // Render particle dot
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = p.color;
+        ctx.fillStyle = particleColor;
+        if (isDark) {
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = particleColor;
+        }
         ctx.fill();
         ctx.shadowBlur = 0;
 
@@ -163,7 +184,8 @@ export const InteractiveCanvas: React.FC = () => {
           const distBetween = Math.hypot(p.x - p2.x, p.y - p2.y);
 
           if (distBetween < connectionDistance) {
-            const alpha = (1 - distBetween / connectionDistance) * 0.22;
+            const alphaBase = 1 - distBetween / connectionDistance;
+            const alpha = isDark ? alphaBase * 0.22 : alphaBase * 0.16;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);

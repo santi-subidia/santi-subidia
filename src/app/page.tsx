@@ -2,7 +2,6 @@ import { InteractiveCanvas } from "@/components/canvas/InteractiveCanvas";
 import { HeaderNav } from "@/components/navigation/HeaderNav";
 import { HeroSection } from "@/components/hero/HeroSection";
 import { ProjectsSection } from "@/components/projects/ProjectsSection";
-import { InteractiveLab } from "@/components/lab/InteractiveLab";
 import { SkillsTelemetry } from "@/components/skills/SkillsTelemetry";
 import { ExperienceSection } from "@/components/experience/ExperienceSection";
 import { ContactSection } from "@/components/contact/ContactSection";
@@ -24,7 +23,6 @@ export default function Home() {
       <div className="relative z-10 space-y-8">
         <HeroSection />
         <ProjectsSection />
-        <InteractiveLab />
         <SkillsTelemetry />
         <ExperienceSection />
         <ContactSection />
@@ -33,3 +31,4 @@ export default function Home() {
     </main>
   );
 }
+
