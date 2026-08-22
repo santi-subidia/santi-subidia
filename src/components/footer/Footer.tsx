@@ -19,21 +19,13 @@ export const Footer: React.FC = () => {
             <span className="font-bold text-foreground text-sm">
               {PORTFOLIO_DATA.developer.name}
             </span>
-            <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500">•</span>
-            <span className="text-xs font-mono text-brand-indigo dark:text-brand-cyan-light font-medium">
-              Interactive Creative Studio
-            </span>
           </div>
           <p className="text-xs font-mono text-zinc-500">
-            © {new Date().getFullYear()} All rights reserved. Architected with Next.js, React 19 &amp; Tailwind.
+            © {new Date().getFullYear()} All rights reserved.
           </p>
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="text-[11px] font-mono text-zinc-500 hidden sm:inline-block">
-            Designed with Impeccable Craft
-          </span>
-
           <button
             onClick={scrollToTop}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-card hover:bg-surface-elevated border border-surface-border text-xs font-mono text-zinc-600 dark:text-zinc-400 hover:text-foreground transition-colors shadow-sm"

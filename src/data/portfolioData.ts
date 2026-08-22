@@ -52,8 +52,8 @@ export const PORTFOLIO_DATA = {
     },
     stats: [
       { label: "Proyectos & Repositorios", value: "10+" },
-      { label: "Carrera Universitaria (ULP)", value: "3er Año" },
-      { label: "Materias Aprobadas", value: "100%" },
+      { label: "Tecnicatura Universitaria (ULP)", value: "Último Año" },
+      { label: "Estado Académico", value: "Último Cuatrimestre" },
       { label: "Especialidades Clave", value: "Backend & Mobile" },
     ],
   },

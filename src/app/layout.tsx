@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Syne, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import SmoothScroller from "@/components/SmoothScroller";
 import "./globals.css";
 
 const inter = Inter({
@@ -105,7 +106,9 @@ FIRST VIEWPORT: Full-bleed canvas with interactive particle/spring physics, prom
 FORM: Interactive Creative Studio, position 5 of grounded list, seed key aa9bd1f0.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
 -->` }} />
-          {children}
+          <SmoothScroller>
+            {children}
+          </SmoothScroller>
         </ThemeProvider>
       </body>
     </html>

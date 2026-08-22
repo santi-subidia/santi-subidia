@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { 
   ArrowDown, 
   Terminal, 
@@ -23,6 +25,36 @@ export const HeroSection: React.FC = () => {
   const [timeString, setTimeString] = useState("");
   const [codeOutput, setCodeOutput] = useState<string | null>(null);
   const [isRunningCode, setIsRunningCode] = useState(false);
+
+  const containerRef = useRef<HTMLElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const actionsRef = useRef<HTMLDivElement>(null);
+  const codeCardRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    tl.fromTo(headlineRef.current, 
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1 }
+    )
+    .fromTo(textRef.current,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8 },
+      "-=0.6"
+    )
+    .fromTo(actionsRef.current,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8 },
+      "-=0.6"
+    )
+    .fromTo(codeCardRef.current,
+      { x: 40, opacity: 0, rotationY: -15, transformPerspective: 1000 },
+      { x: 0, opacity: 1, rotationY: 0, duration: 1.2, ease: "power4.out" },
+      "-=1"
+    );
+  }, { scope: containerRef });
 
   useEffect(() => {
     const updateTime = () => {
@@ -58,38 +90,20 @@ export const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-[92vh] flex flex-col justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10">
-      {/* Telemetry Status Bar */}
-      <div className="flex flex-wrap items-center gap-3 mb-8 text-xs font-mono">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-card border border-surface-border text-zinc-700 dark:text-zinc-300 shadow-sm">
-          <MapPin className="w-3.5 h-3.5 text-brand-cyan" />
-          <span>Argentina</span>
-        </div>
-
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-card border border-surface-border text-zinc-700 dark:text-zinc-300 shadow-sm">
-          <Clock className="w-3.5 h-3.5 text-brand-indigo dark:text-brand-indigo-light" />
-          <span>{timeString || "12:00:00"} (UTC-3)</span>
-        </div>
-
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>{PORTFOLIO_DATA.developer.status.text}</span>
-        </div>
-      </div>
-
+    <section ref={containerRef} className="relative min-h-[92vh] flex flex-col justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left Column: Heading & Value Proposition */}
         <div className="lg:col-span-7 space-y-6">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.1]">
+          <h1 ref={headlineRef} className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.1] opacity-0">
             Desarrollo de Software, Arquitectura Backend &amp; Mobile.
           </h1>
 
-          <p className="text-lg sm:text-xl text-zinc-600 dark:text-zinc-300 font-sans leading-relaxed max-w-2xl">
-            Hola, soy <span className="text-foreground font-semibold">{PORTFOLIO_DATA.developer.name}</span>. Construyo sistemas robustos en Backend (.NET, Node.js), aplicaciones móviles nativas (Android) y soluciones web modernas con enfoque en Clean Architecture y código escalable.
+          <p ref={textRef} className="text-lg sm:text-xl text-zinc-600 dark:text-zinc-300 font-sans leading-relaxed max-w-2xl opacity-0">
+            Hola, soy <span className="text-foreground font-semibold">{PORTFOLIO_DATA.developer.name}</span>. Programador Full Stack con conocimientos en desarrollo móvil nativo (Android). Construyo soluciones integrales, escalables y con enfoque en Clean Architecture.
           </p>
 
           {/* Quick Action CTAs */}
-          <div className="flex flex-wrap items-center gap-4 pt-2">
+          <div ref={actionsRef} className="flex flex-wrap items-center gap-4 pt-2 opacity-0">
             <a
               href="#projects"
               className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-brand-indigo hover:bg-brand-indigo-light text-white font-mono text-sm font-medium transition-all shadow-glow-indigo hover:translate-y-[-1px]"
@@ -142,7 +156,7 @@ export const HeroSection: React.FC = () => {
 
         {/* Right Column: Live Executable Code Specimen */}
         <div className="lg:col-span-5">
-          <div className="glass-card rounded-2xl p-5 border border-surface-border shadow-2xl relative overflow-hidden">
+          <div ref={codeCardRef} className="glass-card rounded-2xl p-5 border border-surface-border shadow-2xl relative overflow-hidden opacity-0">
             {/* Window Header */}
             <div className="flex items-center justify-between pb-4 mb-4 border-b border-surface-border/60">
               <div className="flex items-center gap-2">
@@ -177,9 +191,9 @@ export const HeroSection: React.FC = () => {
               </p>
               <p className="pl-4">
                 <span className="text-zinc-500 dark:text-zinc-400">stack:</span> [
-                <span className="text-emerald-600 dark:text-emerald-400">&quot;C# / .NET&quot;</span>,{" "}
-                <span className="text-emerald-600 dark:text-emerald-400">&quot;Android (Java)&quot;</span>,{" "}
-                <span className="text-emerald-600 dark:text-emerald-400">&quot;Node.js&quot;</span>],
+                <span className="text-emerald-600 dark:text-emerald-400">&quot;.Net&quot;</span>,{" "}
+                <span className="text-emerald-600 dark:text-emerald-400">&quot;Android(JAVA)&quot;</span>,{" "}
+                <span className="text-emerald-600 dark:text-emerald-400">&quot;Next.js&quot;</span>],
               </p>
               <p className="pl-4">
                 <span className="text-zinc-500 dark:text-zinc-400">architecture:</span>{" "}
@@ -188,11 +202,12 @@ export const HeroSection: React.FC = () => {
               <p className="pl-4">
                 <span className="text-zinc-500 dark:text-zinc-400">databases:</span> [
                 <span className="text-emerald-600 dark:text-emerald-400">&quot;PostgreSQL&quot;</span>,{" "}
-                <span className="text-emerald-600 dark:text-emerald-400">&quot;MySQL&quot;</span>],
+                <span className="text-emerald-600 dark:text-emerald-400">&quot;MySQL&quot;</span>,{" "}
+                <span className="text-emerald-600 dark:text-emerald-400">&quot;SQLite&quot;</span>],
               </p>
               <p className="pl-4">
                 <span className="text-zinc-500 dark:text-zinc-400">status:</span>{" "}
-                <span className="text-amber-600 dark:text-amber-400">&quot;Materias 100% Aprobadas - Práctica Laboral&quot;</span>
+                <span className="text-amber-600 dark:text-amber-400">&quot;Cursando el último cuatrimestre de la carrera&quot;</span>
               </p>
               <p>&#125;;</p>
             </div>

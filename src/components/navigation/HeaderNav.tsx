@@ -94,17 +94,8 @@ export const HeaderNav: React.FC = () => {
             ))}
           </nav>
 
-          {/* Action Hub (Status, Cmd+K trigger, Theme Toggle, Socials) */}
+          {/* Action Hub (Cmd+K trigger, Theme Toggle, Socials) */}
           <div className="hidden sm:flex items-center gap-2.5">
-            {/* Live Availability Badge */}
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-surface-card/90 border border-surface-border text-xs font-mono text-zinc-700 dark:text-zinc-300">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              <span className="text-[11px]">Available</span>
-            </div>
-
             {/* Command Palette Trigger */}
             <button
               onClick={() => setCommandPaletteOpen(true)}
@@ -171,11 +162,7 @@ export const HeaderNav: React.FC = () => {
               );
             })}
 
-            <div className="pt-3 border-t border-surface-border/50 flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs font-mono text-emerald-600 dark:text-emerald-400">
-                <span className="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>Available for projects</span>
-              </div>
+            <div className="pt-3 border-t border-surface-border/50 flex items-center justify-end">
               <div className="flex gap-2">
                 <a
                   href={PORTFOLIO_DATA.developer.socials.github}
