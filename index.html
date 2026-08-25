@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Santiago Subidia — Software Developer | Full-Stack & Mobile</title>
+    <meta name="description" content="Portfolio de Santiago Subidia — Desarrollador de Software especializado en Backend (.NET, Node.js), Mobile (Android Nativo) y Web moderna. Diseñado con GSAP y Lenis." />
+    
+    <!-- Google Fonts: Syne, Inter, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-background text-foreground selection:bg-primary/30 selection:text-white antialiased overflow-x-hidden">
+    <!-- Grain Noise Overlay -->
+    <div class="fixed inset-0 pointer-events-none z-50 opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor" class="hidden md:block fixed top-0 left-0 w-8 h-8 rounded-full border border-primary/60 pointer-events-none z-50 -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 mix-blend-difference">
+      <div class="w-1.5 h-1.5 bg-secondary rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+    </div>
+
+    <!-- Preloader / Kinetic Curtain -->
+    <div id="preloader" class="fixed inset-0 z-50 bg-[#07090e] flex flex-col items-center justify-center p-6 select-none">
+      <div class="overflow-hidden mb-4">
+        <h1 class="loader-title text-3xl sm:text-5xl font-display font-extrabold tracking-tight text-white translate-y-full">
+          SANTIAGO SUBIDIA
+        </h1>
+      </div>
+      <div class="overflow-hidden mb-8">
+        <p class="loader-subtitle text-xs sm:text-sm font-mono text-cyan-400 tracking-widest uppercase translate-y-full">
+          PORTFOLIO ARCHIVE // 2026 EDITION
+        </p>
+      </div>
+      <div class="w-48 sm:w-64 h-[2px] bg-surface-border relative overflow-hidden rounded-full">
+        <div id="loader-progress" class="absolute top-0 left-0 bottom-0 w-0 bg-gradient-to-r from-primary to-secondary"></div>
+      </div>
+      <span id="loader-counter" class="mt-3 font-mono text-xs text-slate-400">0%</span>
+    </div>
+
+    <!-- App Main Container -->
+    <div id="app" class="relative opacity-0 flex flex-col min-h-screen">
+      <!-- Navbar -->
+      <header id="navbar-container" class="fixed top-0 left-0 right-0 z-40 px-4 sm:px-8 py-4 transition-all duration-300"></header>
+
+      <!-- Main Content Flow -->
+      <main class="flex-grow">
+        <!-- Hero Section -->
+        <section id="hero-section" class="relative min-h-[88vh] flex items-center justify-center pt-16 sm:pt-20 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-8"></section>
+
+        <!-- Pinned Horizontal Projects Showcase -->
+        <section id="projects-section" class="relative pt-6 pb-12"></section>
+
+        <!-- Skills Lab Section -->
+        <section id="skills-section" class="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"></section>
+
+        <!-- University & Career Timeline -->
+        <section id="experience-section" class="relative py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"></section>
+
+        <!-- Contact Terminal Section -->
+        <section id="contact-section" class="relative py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"></section>
+      </main>
+
+      <!-- Clean Minimal Footer -->
+      <footer id="footer-container" class="relative border-t border-surface-border py-8 px-4 sm:px-6 lg:px-8"></footer>
+    </div>
+
+    <!-- Main TypeScript Entry Point -->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

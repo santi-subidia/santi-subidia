@@ -17,7 +17,6 @@ export interface Project {
 export interface TechItem {
   name: string;
   category: "Backend & APIs" | "Mobile Android" | "Frontend & Web" | "Bases de Datos & Herramientas";
-  iconKey: "csharp" | "dotnet" | "java" | "android" | "nodejs" | "express" | "react" | "nextjs" | "typescript" | "javascript" | "html5" | "css" | "tailwind" | "postgresql" | "mysql" | "sqlite" | "docker" | "git" | "github" | "githubactions" | "code";
   role: string;
 }
 
@@ -36,9 +35,10 @@ export interface ExperienceItem {
 export const PORTFOLIO_DATA = {
   developer: {
     name: "Santiago Subidia",
-    role: "Desarrollador de Software | Full-Stack & Mobile",
-    shortBio: "Desarrollador de software enfocado en la construcción de sistemas robustos en Backend (.NET, Node.js), aplicaciones móviles nativas (Android) y soluciones web modernas con React y Next.js. Estudiante del último año de la Tecnicatura Universitaria en Desarrollo de Software (ULP).",
-    location: "Argentina (UTC-3)",
+    role: "Desarrollador de Software",
+    subRole: "Full-Stack & Mobile Developer",
+    shortBio: "Especializado en la construcción de arquitecturas backend robustas (.NET, Node.js), aplicaciones móviles nativas de alto rendimiento (Android) e interfaces web reactivas con GSAP, TypeScript y Next.js. Estudiante del último año de la Tecnicatura Universitaria en Desarrollo de Software (ULP).",
+    location: "San Luis, Argentina (UTC-3)",
     status: {
       text: "Disponible para oportunidades laborales & proyectos",
       available: true,
@@ -51,10 +51,10 @@ export const PORTFOLIO_DATA = {
       ulp: "https://www.ulp.edu.ar/",
     },
     stats: [
-      { label: "Proyectos & Repositorios", value: "10+" },
-      { label: "Tecnicatura Universitaria (ULP)", value: "Último Año" },
-      { label: "Estado Académico", value: "Último Cuatrimestre" },
-      { label: "Especialidades Clave", value: "Backend & Mobile" },
+      { label: "Proyectos Destacados", value: "6+" },
+      { label: "Universidad de La Punta", value: "Último Año" },
+      { label: "Asignaturas Técnicas", value: "100% Aprobadas" },
+      { label: "Core Stacks", value: ".NET • Android • TS" },
     ],
   },
 
@@ -71,7 +71,7 @@ export const PORTFOLIO_DATA = {
         "Integración de notificaciones en tiempo real vía Bot de Telegram para nuevos turnos",
         "Sincronización con calendario para visualización integral de la agenda diaria",
       ],
-      metrics: ["Notificaciones por Telegram", "PWA Administrativa", "Desarrollo a medida"],
+      metrics: ["Notificaciones Telegram en vivo", "PWA Administrativa", "Desarrollo a medida"],
       technologies: ["TypeScript", "React", "C#", ".NET", "PostgreSQL", "Tailwind CSS", "PWA", "Telegram API"],
       liveUrl: "https://www.qrayabarber.com/",
       featured: true,
@@ -126,15 +126,16 @@ public Factura GenerarFactura(Cliente cliente, List<DetalleVenta> items, decimal
         "Comunicación en tiempo real de doble vía implementada con WebSockets a través de SignalR",
         "Sincronización instantánea de estados de pedidos y mesas entre múltiples dispositivos",
       ],
-      metrics: ["Android Nativo", "WebSockets con SignalR", "Proyecto Educativo"],
+      metrics: ["Android Nativo (Java)", "WebSockets con SignalR", "Ecosistema Móvil"],
       technologies: ["C#", ".NET", "Android (Java)", "SignalR", "WebSockets", "Docker"],
       githubUrl: "https://github.com/santi-subidia/app-gastronomia",
       featured: true,
       specimenType: "systems",
-      demoSnippet: `// Controller de Pedidos en C# ASP.NET Core (Clean Architecture)
+      demoSnippet: `// Controller de Pedidos en C# ASP.NET Core
 [HttpPost]
 public async Task<ActionResult<PedidoDto>> CrearPedido([FromBody] RegistrarPedidoDto request) {
     var pedido = await _pedidoService.RegistrarPedidoAsync(request);
+    await _hubContext.Clients.All.SendAsync("NuevoPedidoRecibido", pedido);
     return CreatedAtAction(nameof(ObtenerPorId), new { id = pedido.Id }, pedido);
 }`,
     },
@@ -150,7 +151,7 @@ public async Task<ActionResult<PedidoDto>> CrearPedido([FromBody] RegistrarPedid
         "Registro clínico detallado que consolida todo procedimiento realizado durante la estadía para el alta",
         "Arquitectura MVC en Node.js con base de datos relacional y validación estricta",
       ],
-      metrics: ["Flujo de pacientes NN", "Gestión de camas y restricciones", "Proyecto Educativo"],
+      metrics: ["Flujo de pacientes NN", "Gestión de camas y restricciones", "Express 5 + Sequelize"],
       technologies: ["Node.js", "Express 5", "Sequelize ORM", "MySQL", "Pug", "Zod", "bcrypt"],
       githubUrl: "https://github.com/santi-subidia/HIS",
       featured: true,
@@ -165,19 +166,19 @@ const internacionSchema = z.object({
     },
     {
       id: "inmobiliaria-sistema",
-      title: "Ecosistema Inmobiliario (API .NET & App Móvil)",
-      tagline: "Desarrollo en dos etapas: API backend con reglas de negocio y App Android para consumo",
+      title: "Ecosistema Inmobiliario (.NET API & Android)",
+      tagline: "Arquitectura en dos etapas: API backend RESTful y cliente móvil nativo en Android",
       category: "Full-Stack",
-      description: "Proyecto educativo dividido en dos repositorios con consignas narrativas distintas. En la primera etapa se desarrolló una API robusta en .NET con condiciones complejas para inmuebles, propietarios y contratos. En la segunda etapa, bajo una narrativa similar, el enfoque fue construir una interfaz móvil nativa en Android diseñada exclusivamente para consumir dicha API.",
+      description: "Proyecto educativo dividido en dos repositorios con consignas de negocio escalonadas. En la primera etapa se desarrolló una API robusta en .NET con condiciones complejas para inmuebles, propietarios y contratos de locación. En la segunda etapa, el enfoque fue construir una interfaz móvil nativa en Android diseñada para consumir dicha API asíncronamente.",
       architecture: [
         "API en .NET que implementa reglas de negocio complejas para entidades inmobiliarias y contratos",
         "Aplicación móvil Android enfocada en el diseño de interfaz y consumo asíncrono de la API REST",
         "Separación arquitectónica y conceptual en dos repositorios para fines educativos escalonados",
       ],
-      metrics: ["API REST .NET", "Consumo en Android Nativo", "Proyecto Educativo (2 Fases)"],
+      metrics: ["API REST .NET", "Consumo en Android Nativo", "Proyecto Integral 2 Fases"],
       technologies: ["C#", ".NET Core API", "Android (Java)", "MySQL", "REST APIs"],
       githubUrl: "https://github.com/santi-subidia/inmobiliaria-tp-moviles",
-      featured: false,
+      featured: true,
       specimenType: "interactive",
       demoSnippet: `// Repositorio de Contratos de Alquiler en C#
 public async Task<IEnumerable<Contrato>> ObtenerContratosVigentesAsync() {
@@ -188,17 +189,17 @@ public async Task<IEnumerable<Contrato>> ObtenerContratosVigentesAsync() {
     },
     {
       id: "dreamcaps-landing-page",
-      title: "DreamCaps — Landing Page Personal",
-      tagline: "Landing page interactiva desarrollada para poner en práctica y perfeccionar habilidades de Frontend",
+      title: "DreamCaps — Showcase Frontend",
+      tagline: "Landing page interactiva desarrollada para perfeccionar microinteracciones y UI moderna",
       category: "Full-Stack",
-      description: "Landing page personal creada específicamente para poner en práctica y elevar el nivel en desarrollo frontend. Implementa un catálogo interactivo de productos con microinteracciones avanzadas, renderizado de alto rendimiento y un diseño altamente enfocado en UI/UX y conversión directa.",
+      description: "Landing page personal creada para elevar el nivel en desarrollo frontend. Implementa un catálogo interactivo de productos con microinteracciones, renderizado ultra rápido y flujo directo de conversión a WhatsApp.",
       architecture: [
         "Desarrollado con Next.js (App Router), TypeScript y Tailwind CSS para máxima performance",
         "Enfoque en mejora de habilidades frontend: animaciones, UI responsiva y experiencia de usuario",
         "Integración con API de WhatsApp para flujo de contacto y conversión directa",
         "Efectos visuales interactivos y optimización SEO con metadatos estructurados",
       ],
-      metrics: ["Práctica Frontend Avanzada", "UI/UX & Microinteracciones", "100% Responsive"],
+      metrics: ["Práctica Frontend Avanzada", "UI/UX Microinteracciones", "100% Responsive"],
       technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel", "WhatsApp API"],
       githubUrl: "https://github.com/santi-subidia/dreamcaps-landing-page",
       liveUrl: "https://dreamcaps-landing-page.vercel.app",
@@ -213,33 +214,27 @@ export function createWhatsAppInquiryLink(productName: string, phone = "54266417
   ] as Project[],
 
   technologies: [
-    // Backend & APIs
-    { name: "C#", category: "Backend & APIs", iconKey: "csharp", role: "Lenguaje Backend / POO" },
-    { name: ".NET / ASP.NET Core", category: "Backend & APIs", iconKey: "dotnet", role: "Framework Web & APIs" },
-    { name: "Node.js", category: "Backend & APIs", iconKey: "nodejs", role: "Runtime Backend JavaScript" },
-    { name: "Express.js", category: "Backend & APIs", iconKey: "express", role: "Framework HTTP & REST APIs" },
-    { name: "Docker", category: "Backend & APIs", iconKey: "docker", role: "Contenedores & Despliegue" },
+    { name: "C#", category: "Backend & APIs", role: "Lenguaje Backend / POO" },
+    { name: ".NET / ASP.NET Core", category: "Backend & APIs", role: "Framework Web & APIs" },
+    { name: "Node.js", category: "Backend & APIs", role: "Runtime Backend JS" },
+    { name: "Express.js", category: "Backend & APIs", role: "Framework HTTP & REST" },
+    { name: "Docker", category: "Backend & APIs", role: "Contenedores & Despliegue" },
 
-    // Mobile Android
-    { name: "Android Nativo", category: "Mobile Android", iconKey: "android", role: "Desarrollo Móvil Android SDK" },
-    { name: "Java", category: "Mobile Android", iconKey: "java", role: "Lenguaje Android & POO" },
+    { name: "Android Nativo", category: "Mobile Android", role: "Desarrollo Móvil Android SDK" },
+    { name: "Java", category: "Mobile Android", role: "Lenguaje Android & POO" },
 
-    // Frontend & Web
-    { name: "React", category: "Frontend & Web", iconKey: "react", role: "Librería UI Reactiva" },
-    { name: "Next.js", category: "Frontend & Web", iconKey: "nextjs", role: "Framework React & SSR" },
-    { name: "TypeScript", category: "Frontend & Web", iconKey: "typescript", role: "Tipado Estático para JS" },
-    { name: "JavaScript", category: "Frontend & Web", iconKey: "javascript", role: "Lenguaje Web (ES6+)" },
-    { name: "HTML5", category: "Frontend & Web", iconKey: "html5", role: "Estructura Semántica Web" },
-    { name: "CSS3", category: "Frontend & Web", iconKey: "css", role: "Estilos & Diseño Responsive" },
-    { name: "Tailwind CSS", category: "Frontend & Web", iconKey: "tailwind", role: "Diseño & Estilos Modernos" },
+    { name: "TypeScript", category: "Frontend & Web", role: "Tipado Estático para JS" },
+    { name: "GSAP & ScrollTrigger", category: "Frontend & Web", role: "Animaciones & Motion" },
+    { name: "Lenis", category: "Frontend & Web", role: "Smooth Scroll Engine" },
+    { name: "React", category: "Frontend & Web", role: "Librería UI Reactiva" },
+    { name: "Next.js", category: "Frontend & Web", role: "Framework React & SSR" },
+    { name: "Tailwind CSS", category: "Frontend & Web", role: "Diseño & Estilos Modernos" },
 
-    // Bases de Datos & Herramientas
-    { name: "PostgreSQL", category: "Bases de Datos & Herramientas", iconKey: "postgresql", role: "Base de Datos Relacional Avanzada" },
-    { name: "MySQL", category: "Bases de Datos & Herramientas", iconKey: "mysql", role: "Base de Datos Relacional" },
-    { name: "SQLite", category: "Bases de Datos & Herramientas", iconKey: "sqlite", role: "Base de Datos Embebida / Local" },
-    { name: "Git", category: "Bases de Datos & Herramientas", iconKey: "git", role: "Control de Versiones" },
-    { name: "GitHub", category: "Bases de Datos & Herramientas", iconKey: "github", role: "Repositorios & Colaboración" },
-    { name: "GitHub Actions", category: "Bases de Datos & Herramientas", iconKey: "githubactions", role: "Automatización & CI/CD" },
+    { name: "PostgreSQL", category: "Bases de Datos & Herramientas", role: "Base de Datos Relacional" },
+    { name: "MySQL", category: "Bases de Datos & Herramientas", role: "Base de Datos Relacional" },
+    { name: "SQLite", category: "Bases de Datos & Herramientas", role: "Base de Datos Embebida / Local" },
+    { name: "Git & GitHub", category: "Bases de Datos & Herramientas", role: "Control de Versiones & CI/CD" },
+    { name: "GitHub Actions", category: "Bases de Datos & Herramientas", role: "Automatización & CI/CD" },
   ] as TechItem[],
 
   experience: [
@@ -249,7 +244,7 @@ export function createWhatsAppInquiryLink(productName: string, phone = "54266417
       company: "Universidad de La Punta (ULP)",
       location: "San Luis, Argentina",
       linkUrl: "https://www.ulp.edu.ar/",
-      badge: "Formación Universitaria",
+      badge: "Formación Universitaria Oficial",
       description: "Estudiante del 3er y último año de la carrera. 100% de las asignaturas teóricas y técnicas del plan de estudios aprobadas con éxito; actualmente culminando la carrera con el cursado de la Práctica Profesional Laboral.",
       achievements: [
         "100% de asignaturas teóricas y técnicas del plan de estudios aprobadas con éxito.",

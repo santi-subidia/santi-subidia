@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-color: #0b0d13;
+  --surface-color: #151a26;
+  --primary-glow: rgba(99, 102, 241, 0.35);
+  --secondary-glow: rgba(6, 182, 212, 0.35);
+}
+
+html {
+  background-color: #0b0d13;
+  color-scheme: dark;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #0b0d13;
+  color: #f8fafc;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0d13;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262e40;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+}
+
+/* Glass Components */
+.glass-panel {
+  background: rgba(21, 26, 38, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(38, 46, 64, 0.8);
+}
+
+.glass-card {
+  background: #151a26;
+  border: 1px solid #262e40;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(24, 29, 42, 0.95);
+  border-color: rgba(6, 182, 212, 0.6);
+  box-shadow: 0 25px 65px -10px rgba(6, 182, 212, 0.25), 0 0 25px -5px rgba(99, 102, 241, 0.3);
+}
+
+.glass-pill {
+  background: rgba(28, 35, 51, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #262e40;
+}
+
+/* Kinetic split text mask */
+.char-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.line-wrap {
+  overflow: hidden;
+}
+
+/* Lenis smooth scroll class */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Pulse beacon */
+@keyframes ping-slow {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping-slow {
+  animation: ping-slow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
