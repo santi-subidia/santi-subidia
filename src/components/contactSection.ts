@@ -47,10 +47,6 @@ export function renderContact() {
           <a href="${developer.socials.github}" target="_blank" rel="noreferrer" class="px-5 py-2.5 rounded-xl bg-surface-card hover:bg-surface-elevated border border-surface-border text-slate-300 hover:text-white font-mono text-xs transition-colors flex items-center gap-2" data-magnetic>
             <span class="text-cyan-400">GitHub ↗</span>
           </a>
-
-          <a href="https://wa.me/542664172006" target="_blank" rel="noreferrer" class="px-5 py-2.5 rounded-xl bg-surface-card hover:bg-surface-elevated border border-surface-border text-slate-300 hover:text-white font-mono text-xs transition-colors flex items-center gap-2" data-magnetic>
-            <span class="text-emerald-400">WhatsApp ↗</span>
-          </a>
         </div>
       </div>
     </div>

@@ -30,6 +30,11 @@ export interface ExperienceItem {
   technologies: string[];
   linkUrl?: string;
   badge?: string;
+  type?: "university" | "certification";
+  hours?: string;
+  instructor?: string;
+  credentialId?: string;
+  certificateImage?: string;
 }
 
 export const PORTFOLIO_DATA = {
@@ -53,7 +58,7 @@ export const PORTFOLIO_DATA = {
     stats: [
       { label: "Proyectos Destacados", value: "6+" },
       { label: "Universidad de La Punta", value: "Último Año" },
-      { label: "Asignaturas Técnicas", value: "100% Aprobadas" },
+      { label: "Certificaciones", value: ".NET & IA (Udemy)" },
       { label: "Core Stacks", value: ".NET • Android • TS" },
     ],
   },
@@ -233,12 +238,14 @@ export function createWhatsAppInquiryLink(productName: string, phone = "54266417
     { name: "PostgreSQL", category: "Bases de Datos & Herramientas", role: "Base de Datos Relacional" },
     { name: "MySQL", category: "Bases de Datos & Herramientas", role: "Base de Datos Relacional" },
     { name: "SQLite", category: "Bases de Datos & Herramientas", role: "Base de Datos Embebida / Local" },
+    { name: "n8n", category: "Bases de Datos & Herramientas", role: "Automatización & Agentes IA" },
     { name: "Git & GitHub", category: "Bases de Datos & Herramientas", role: "Control de Versiones & CI/CD" },
     { name: "GitHub Actions", category: "Bases de Datos & Herramientas", role: "Automatización & CI/CD" },
   ] as TechItem[],
 
   experience: [
     {
+      type: "university",
       period: "2024 — Presente (Último Año)",
       role: "Tecnicatura Universitaria en Desarrollo de Software",
       company: "Universidad de La Punta (ULP)",
@@ -253,6 +260,48 @@ export function createWhatsAppInquiryLink(productName: string, phone = "54266417
         "Cursando la Práctica Profesional Laboral (última materia curricular del plan).",
       ],
       technologies: ["C#", ".NET Core", "Java (Android)", "Node.js", "PostgreSQL", "MySQL", "POO", "Metodologías Ágiles"],
+    },
+    {
+      type: "certification",
+      period: "26 de Agosto de 2026",
+      role: "Construyendo Web APIs RESTful con ASP.NET Core 9",
+      company: "Udemy",
+      instructor: "Felipe Gavilán",
+      location: "Certificación Verificada Online",
+      linkUrl: "https://www.udemy.com/certificate/UC-6c4f1f00-174e-44c5-aba8-66badbdf6ed7/",
+      badge: "Certificación Oficial • 27 Horas",
+      hours: "27 horas en total",
+      credentialId: "UC-6c4f1f00-174e-44c5-aba8-66badbdf6ed7",
+      certificateImage: "/certificates/cert-aspnet-core.jpg",
+      description: "Especialización avanzada en el diseño, desarrollo, securización y despliegue de Web APIs RESTful empresariales de alto rendimiento con C# y ASP.NET Core 9, aplicando Clean Architecture, Entity Framework Core y estándares de la industria.",
+      achievements: [
+        "Construcción y diseño de Web APIs RESTful modernas, mantenibles y desacopladas en ASP.NET Core 9.",
+        "Persistencia relacional avanzada con Entity Framework Core, migraciones complejas, DbContext y consultas LINQ optimizadas.",
+        "Seguridad robusta y control de acceso basado en roles y claims mediante JSON Web Tokens (JWT) y ASP.NET Core Identity.",
+        "Manejo centralizado de excepciones, validaciones estrictas, DTOs, paginación, filtros de acción y documentación interactiva con Swagger / OpenAPI.",
+      ],
+      technologies: ["C#", ".NET 9", "ASP.NET Core", "Entity Framework Core", "JWT", "RESTful APIs", "Swagger", "PostgreSQL / SQL Server"],
+    },
+    {
+      type: "certification",
+      period: "9 de Abril de 2026",
+      role: "n8n + MCP: Automatización y agentes de IA inteligentes",
+      company: "Udemy",
+      instructor: "Fernando Herrera, {d/t} - DevTalles",
+      location: "Certificación Verificada Online",
+      linkUrl: "https://www.udemy.com/certificate/UC-7146e018-d67e-4c37-9c60-eb26ef6f615c/",
+      badge: "Certificación Oficial • 18 Horas",
+      hours: "18 horas en total",
+      credentialId: "UC-7146e018-d67e-4c37-9c60-eb26ef6f615c",
+      certificateImage: "/certificates/cert-n8n-mcp.jpg",
+      description: "Formación especializada en la orquestación de flujos de trabajo automatizados con n8n y la integración del protocolo MCP (Model Context Protocol) para construir agentes inteligentes con Modelos de Lenguaje (LLMs) y capacidades de ejecución autónoma de acciones.",
+      achievements: [
+        "Orquestación de pipelines de automatización complejos, webhooks bidireccionales y automatización de procesos con n8n.",
+        "Implementación y configuración del protocolo MCP (Model Context Protocol) para interconectar LLMs con herramientas del sistema y APIs externas.",
+        "Desarrollo de agentes de IA autónomos con memoria conversacional persistente, toma de decisiones y ejecución de funciones (Tool / Function Calling).",
+        "Integración de agentes inteligentes con servicios en la nube, APIs REST, bases de datos vectoriales y plataformas de mensajería.",
+      ],
+      technologies: ["n8n", "MCP Protocol", "Agentes de IA", "LLMs", "Automatización", "Webhooks", "Function Calling", "APIs REST"],
     },
   ] as ExperienceItem[],
 };
