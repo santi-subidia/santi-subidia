@@ -3,7 +3,7 @@ import { playHoverSound } from './sound';
 
 export function initCustomCursor() {
   const cursor = document.getElementById('custom-cursor');
-  if (!cursor || window.innerWidth < 768) return;
+  if (!cursor || window.innerWidth < 768 || !window.matchMedia('(pointer: fine)').matches) return;
 
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;

@@ -28,7 +28,7 @@ export function runPreloader(options?: PreloaderOptions | (() => void)) {
   // Floating idle loop for the avatar while loading
   const floatTween = gsap.to('.loader-img', {
     y: -6,
-    duration: 1.8,
+    duration: 1.6,
     repeat: -1,
     yoyo: true,
     ease: 'sine.inOut',
@@ -38,6 +38,9 @@ export function runPreloader(options?: PreloaderOptions | (() => void)) {
     onComplete: () => {
       floatTween.kill();
       preloader.style.display = 'none';
+      if (preloader.parentNode) {
+        preloader.parentNode.removeChild(preloader);
+      }
       if (onComplete) onComplete();
     },
   });
@@ -45,33 +48,33 @@ export function runPreloader(options?: PreloaderOptions | (() => void)) {
   // 1. Entrance of ambient glow and avatar illustration
   tl.to('.loader-glow', {
     opacity: 1,
-    duration: 0.8,
+    duration: 0.6,
     ease: 'power2.out',
   })
   .to('.loader-avatar-wrap', {
     opacity: 1,
     scale: 1,
-    duration: 0.7,
+    duration: 0.6,
     ease: 'back.out(1.4)',
-  }, '-=0.6')
+  }, '-=0.4')
 
   // 2. Entrance text reveal
   .to('.loader-title', {
     y: '0%',
-    duration: 0.6,
-    ease: 'power3.out',
-  }, '-=0.4')
-  .to('.loader-subtitle', {
-    y: '0%',
     duration: 0.5,
     ease: 'power3.out',
-  }, '-=0.3');
+  }, '-=0.3')
+  .to('.loader-subtitle', {
+    y: '0%',
+    duration: 0.4,
+    ease: 'power3.out',
+  }, '-=0.2');
 
   // 3. Simulated progress loading counter with dynamic status telemetry
   const progressObj = { value: 0 };
   tl.to(progressObj, {
     value: 100,
-    duration: 1.2,
+    duration: 0.9,
     ease: 'power2.inOut',
     onUpdate: () => {
       const val = Math.round(progressObj.value);
@@ -94,24 +97,26 @@ export function runPreloader(options?: PreloaderOptions | (() => void)) {
   });
 
   // 4. Brief hold at 100% before cinematic curtain lift
-  tl.to({}, { duration: 0.2 });
+  tl.to({}, { duration: 0.1 });
 
   // 5. Curtain exit transition
   tl.to('.loader-avatar-wrap', {
     scale: 0.95,
     opacity: 0,
-    duration: 0.4,
+    duration: 0.3,
     ease: 'power2.in',
   })
   .to(preloader, {
     yPercent: -100,
-    duration: 0.8,
+    opacity: 0.95,
+    duration: 0.7,
     ease: 'expo.inOut',
     onStart: () => {
+      preloader.style.pointerEvents = 'none';
       playSuccessSound();
       if (onExitStart) {
         onExitStart();
       }
     },
-  }, '-=0.2');
+  }, '-=0.15');
 }

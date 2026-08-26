@@ -13,8 +13,8 @@ export function renderHero() {
 
   container.innerHTML = `
     <!-- Ambient Radial Glows -->
-    <div class="absolute top-1/4 left-1/4 w-[450px] h-[450px] bg-primary/15 rounded-full blur-[140px] pointer-events-none -z-10"></div>
-    <div class="absolute top-1/3 right-1/4 w-[450px] h-[450px] bg-cyan-500/10 rounded-full blur-[130px] pointer-events-none -z-10"></div>
+    <div class="absolute top-1/4 left-1/4 w-[300px] sm:w-[450px] h-[300px] sm:h-[450px] bg-primary/15 rounded-full blur-3xl transform-gpu pointer-events-none -z-10"></div>
+    <div class="absolute top-1/3 right-1/4 w-[300px] sm:w-[450px] h-[300px] sm:h-[450px] bg-cyan-500/10 rounded-full blur-3xl transform-gpu pointer-events-none -z-10"></div>
 
     <div class="relative max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-start lg:items-center pt-0 lg:pt-2">
       
@@ -207,37 +207,39 @@ function initIsometricInteractivity() {
     );
   }
 
-  // Mouse move 3D Tilt
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
+  // Mouse move 3D Tilt (only on desktop/mouse devices)
+  if (window.matchMedia('(pointer: fine)').matches) {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-    gsap.to(card, {
-      rotateY: x * 18,
-      rotateX: -y * 18,
-      transformPerspective: 1000,
-      ease: 'power2.out',
-      duration: 0.5,
+      gsap.to(card, {
+        rotateY: x * 18,
+        rotateX: -y * 18,
+        transformPerspective: 1000,
+        ease: 'power2.out',
+        duration: 0.5,
+      });
+
+      if (badge1) gsap.to(badge1, { x: x * 35, y: y * 35 - 8, ease: 'power2.out', duration: 0.4 });
+      if (badge2) gsap.to(badge2, { x: -x * 30, y: -y * 30 - 12, ease: 'power2.out', duration: 0.4 });
+      if (badge3) gsap.to(badge3, { x: x * 25, y: y * 25 - 6, ease: 'power2.out', duration: 0.4 });
     });
 
-    if (badge1) gsap.to(badge1, { x: x * 35, y: y * 35 - 8, ease: 'power2.out', duration: 0.4 });
-    if (badge2) gsap.to(badge2, { x: -x * 30, y: -y * 30 - 12, ease: 'power2.out', duration: 0.4 });
-    if (badge3) gsap.to(badge3, { x: x * 25, y: y * 25 - 6, ease: 'power2.out', duration: 0.4 });
-  });
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, {
+        rotateY: 0,
+        rotateX: 0,
+        ease: 'power3.out',
+        duration: 0.8,
+      });
 
-  card.addEventListener('mouseleave', () => {
-    gsap.to(card, {
-      rotateY: 0,
-      rotateX: 0,
-      ease: 'power3.out',
-      duration: 0.8,
+      if (badge1) gsap.to(badge1, { x: 0, y: 0, ease: 'power3.out', duration: 0.8 });
+      if (badge2) gsap.to(badge2, { x: 0, y: 0, ease: 'power3.out', duration: 0.8 });
+      if (badge3) gsap.to(badge3, { x: 0, y: 0, ease: 'power3.out', duration: 0.8 });
     });
-
-    if (badge1) gsap.to(badge1, { x: 0, y: 0, ease: 'power3.out', duration: 0.8 });
-    if (badge2) gsap.to(badge2, { x: 0, y: 0, ease: 'power3.out', duration: 0.8 });
-    if (badge3) gsap.to(badge3, { x: 0, y: 0, ease: 'power3.out', duration: 0.8 });
-  });
+  }
 
   // Interactive Click on character
   let clickIdx = 0;

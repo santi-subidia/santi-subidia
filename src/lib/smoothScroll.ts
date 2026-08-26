@@ -4,18 +4,27 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Prevent mobile URL bar height changes from triggering destructive ScrollTrigger reflows
+ScrollTrigger.config({
+  ignoreMobileResize: true,
+  autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load',
+});
+
 let lenisInstance: Lenis | null = null;
 
 export function initSmoothScroll(): Lenis {
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
   const lenis = new Lenis({
-    duration: 1.2,
+    duration: isTouchDevice ? 1.0 : 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential ease out
     orientation: 'vertical',
     gestureOrientation: 'vertical',
     smoothWheel: true,
     wheelMultiplier: 1,
-    touchMultiplier: 1.5,
+    touchMultiplier: 1,
     infinite: false,
+    syncTouch: false,
   });
 
   lenisInstance = lenis;
@@ -27,7 +36,8 @@ export function initSmoothScroll(): Lenis {
     lenis.raf(time * 1000);
   });
 
-  gsap.ticker.lagSmoothing(0);
+  // Restore smooth lag recovery so frame spikes don't lock the thread
+  gsap.ticker.lagSmoothing(500, 33);
 
   return lenis;
 }

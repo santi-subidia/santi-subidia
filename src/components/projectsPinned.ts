@@ -14,7 +14,7 @@ export function renderProjects() {
   container.innerHTML = `
     <div class="projects-wrapper w-full relative overflow-hidden">
       <!-- Ambient Floor Glow / Light Beam underneath project cards -->
-      <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[92%] max-w-7xl h-44 bg-gradient-to-t from-cyan-500/30 via-primary/20 to-transparent rounded-full blur-[90px] pointer-events-none z-0"></div>
+      <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[92%] max-w-7xl h-36 bg-gradient-to-t from-cyan-500/25 via-primary/15 to-transparent rounded-full blur-3xl transform-gpu pointer-events-none z-0"></div>
       <div class="absolute bottom-1 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent pointer-events-none z-0"></div>
 
       <!-- Compact Section Header -->
@@ -123,24 +123,27 @@ export function renderProjects() {
 }
 
 export function initProjectsAnimation() {
-  const track = document.querySelector('.projects-track');
-  if (!track || window.innerWidth < 1024) return;
+  const mm = gsap.matchMedia();
 
-  // Calculate horizontal distance to scroll
-  const getScrollAmount = () => {
-    return -(track.scrollWidth - window.innerWidth + 80);
-  };
+  mm.add('(min-width: 1024px)', () => {
+    const track = document.querySelector('.projects-track') as HTMLElement | null;
+    if (!track) return;
 
-  gsap.to(track, {
-    x: getScrollAmount,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#projects-section',
-      pin: true,
-      scrub: 1,
-      start: 'top top+=65',
-      end: () => `+=${track.scrollWidth - window.innerWidth + 200}`,
-      invalidateOnRefresh: true,
-    },
+    const getScrollAmount = () => {
+      return -(track.scrollWidth - window.innerWidth + 80);
+    };
+
+    gsap.to(track, {
+      x: getScrollAmount,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#projects-section',
+        pin: true,
+        scrub: 1,
+        start: 'top top+=65',
+        end: () => `+=${track.scrollWidth - window.innerWidth + 200}`,
+        invalidateOnRefresh: true,
+      },
+    });
   });
 }

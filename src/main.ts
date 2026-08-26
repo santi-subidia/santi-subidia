@@ -44,9 +44,17 @@ function initApp() {
     },
   });
 
-  // Handle window resize for dynamic pinned scroll recalculation
+  // Handle window resize only when width changes (avoids mobile URL bar height scroll lag)
+  let lastWidth = window.innerWidth;
+  let resizeTimeout: number | undefined;
   window.addEventListener('resize', () => {
-    ScrollTrigger.refresh();
+    if (window.innerWidth !== lastWidth) {
+      lastWidth = window.innerWidth;
+      clearTimeout(resizeTimeout);
+      resizeTimeout = window.setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 150);
+    }
   });
 }
 

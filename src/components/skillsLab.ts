@@ -276,10 +276,10 @@ function arrangeGrid() {
       rotation: 0,
       opacity: 1,
       scale: 1,
-      duration: 0.6,
+      duration: 0.5,
       delay: idx * 0.015,
       ease: 'power3.out',
-      onUpdate() {
+      onComplete() {
         if (b.draggable) b.draggable.update();
       }
     });
@@ -341,16 +341,14 @@ function morphToLargeBubblesAndFloat() {
       x: randomX,
       y: randomY,
       rotation: 0,
-      duration: 0.7,
+      duration: 0.6,
       delay: idx * 0.015,
       ease: 'back.out(1.4)',
       onComplete() {
+        if (b.draggable) b.draggable.update();
         if (idx === bodies.length - 1) {
           startContinuousPhysics();
         }
-      },
-      onUpdate() {
-        if (b.draggable) b.draggable.update();
       }
     });
 
