@@ -56,7 +56,7 @@ export const PORTFOLIO_DATA = {
       ulp: "https://www.ulp.edu.ar/",
     },
     stats: [
-      { label: "Proyectos Destacados", value: "6+" },
+      { label: "Proyectos Destacados", value: "7+" },
       { label: "Universidad de La Punta", value: "Último Año" },
       { label: "Certificaciones", value: ".NET & IA (Udemy)" },
       { label: "Core Stacks", value: ".NET • Android • TS" },
@@ -64,6 +64,43 @@ export const PORTFOLIO_DATA = {
   },
 
   projects: [
+    {
+      id: "asistente-atencion-al-cliente",
+      title: "Asistente IA — Clínica Odontológica",
+      tagline: "Agente virtual inteligente con RAG semántico, Function Calling y gestión de citas en tiempo real",
+      category: "Full-Stack",
+      description: "Agente virtual de atención al cliente e inteligencia artificial para una clínica odontológica. Desarrollado con Next.js 16 (App Router) y Vercel AI SDK. Utiliza RAG (Retrieval-Augmented Generation) con búsqueda semántica vectorial (Supabase pgvector y Gemini Embeddings en 768 dimensiones) para responder dudas sobre tratamientos y precios, y Function Calling para interactuar de forma autónoma con la base de datos de turnos (consultar disponibilidad, agendar y cancelar citas con validaciones estrictas). Incluye streaming de UI y persistencia de memoria conversacional.",
+      architecture: [
+        "Arquitectura RAG con embeddings de Gemini (768d) y búsqueda por similitud de coseno en Supabase (pgvector)",
+        "Orquestación de agente con Vercel AI SDK y Function Calling para operaciones autónomas en base de datos",
+        "Lógica y validación de reglas de negocio para agendamiento, cancelación y control estricto de horarios",
+        "Streaming en tiempo real de respuestas y persistencia de historial de conversaciones por sessionId",
+      ],
+      metrics: ["RAG Semántico (pgvector)", "Function Calling con AI SDK", "Persistencia & Streaming UI"],
+      technologies: ["TypeScript", "Next.js", "React", "Vercel AI SDK", "Google Gemini", "Supabase", "PostgreSQL", "pgvector", "Tailwind CSS", "Zod"],
+      githubUrl: "https://github.com/santi-subidia/asistente-atencion-al-cliente",
+      liveUrl: "https://asistente-atencion-al-cliente.vercel.app/",
+      featured: true,
+      specimenType: "interactive",
+      demoSnippet: `// Herramienta RAG con búsqueda semántica vectorial en Supabase
+buscar_informacion_clinica: tool({
+  description: 'Busca información sobre tratamientos y aranceles.',
+  inputSchema: z.object({ query: z.string() }),
+  execute: async ({ query }) => {
+    const { embedding } = await embed({
+      model: google.embedding('gemini-embedding-001'),
+      value: query,
+      providerOptions: { google: { outputDimensionality: 768 } }
+    });
+    const { data } = await supabase.rpc('match_documentos', {
+      query_embedding: embedding,
+      match_threshold: 0.5,
+      match_count: 5,
+    });
+    return data?.map((d: any) => d.contenido).join('\\n\\n') ?? 'Sin información.';
+  }
+})`,
+    },
     {
       id: "app-agenda",
       title: "App Agenda — Barbería",
@@ -238,6 +275,7 @@ export function createWhatsAppInquiryLink(productName: string, phone = "54266417
     { name: "PostgreSQL", category: "Bases de Datos & Herramientas", role: "Base de Datos Relacional" },
     { name: "MySQL", category: "Bases de Datos & Herramientas", role: "Base de Datos Relacional" },
     { name: "SQLite", category: "Bases de Datos & Herramientas", role: "Base de Datos Embebida / Local" },
+    { name: "Supabase & pgvector", category: "Bases de Datos & Herramientas", role: "BaaS & Búsqueda Vectorial" },
     { name: "n8n", category: "Bases de Datos & Herramientas", role: "Automatización & Agentes IA" },
     { name: "Git & GitHub", category: "Bases de Datos & Herramientas", role: "Control de Versiones & CI/CD" },
     { name: "GitHub Actions", category: "Bases de Datos & Herramientas", role: "Automatización & CI/CD" },
